@@ -1,1 +1,4 @@
 /quiz/node_modules
+/quiz/.vscode
+/quiz/.angular/cache/*
+/quiz/public/build
