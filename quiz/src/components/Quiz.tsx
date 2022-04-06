@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Question } from './Question';
 import { Results } from './Results';
+import './Quiz.css';
 
 const questions = [
   {
@@ -14,22 +15,42 @@ const questions = [
 ]
 
 export function Quiz() {
-  const showResults = false
+  const [showResults, setShowResults] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  // const answers = []
+  const [answers, setAnswers] = useState<number[]>([])
 
   function confirm() {
     console.log('Confirma resposta')
-    setCurrentQuestion(currentQuestion + 1)
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1)
+    }
+    else {
+      setShowResults(true)
+    }
+  }
+
+  function select(optionIndex: number) {
+    console.log(`selecionou a opção ${optionIndex}`)
+    
+    // const ans = [...answers]
+    answers[currentQuestion] = optionIndex
+    // setAnswers(answers)
   }
   
   if (showResults) {
-    return <Results />
+    console.log(answers)
+    const ans = answers.map((optionIndex, questionIndex) => questions[questionIndex].options[optionIndex])
+    return <Results answers={ ans }/>
   }
   else {
-    return <div>
+    return <div className="panel">
+      Opção selecionada:
+      { answers[currentQuestion] }
       <Question
-      statement={ questions[currentQuestion].statement }
-      options={ questions[currentQuestion].options }
+        statement={ questions[currentQuestion].statement }
+        options={ questions[currentQuestion].options }
+        onSelection={ select }
       />
       <button onClick={ confirm }>Confirma resposta</button>
     </div>
