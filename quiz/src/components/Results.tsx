@@ -1,7 +1,15 @@
 import React from 'react';
 
+interface resultProps {
+  answers: string[];
+}
 
-// export const Results = () => <h1>Resultados</h1>
-export function Results() {
-  return <h1>Resultados</h1>
+export function Results(props: resultProps) {
+  const ans = props.answers.map((txt) => <li key={txt}>{txt}</li>);
+  return (
+    <div>
+      <h1>Resultados</h1>
+      <ul>{ans}</ul>
+    </div>
+  );
 }

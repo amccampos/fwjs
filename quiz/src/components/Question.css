@@ -1,5 +1,24 @@
-
 h1 {
   margin: 0;
   font-weight: normal;
+}
+
+.question {
+  margin: 20px;
+}
+
+.question-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.question-text {
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  background-color: #f0f0eb;
 }
