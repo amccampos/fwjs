@@ -17,13 +17,14 @@ const questions = [
 export function Quiz() {
   const [showResults, setShowResults] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  // const answers = []
+  const [currentOption, setCurrentOption] = useState<number>()
   const [answers, setAnswers] = useState<number[]>([])
 
   function confirm() {
     console.log('Confirma resposta')
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
+      setCurrentOption(undefined)
     }
     else {
       setShowResults(true)
@@ -31,28 +32,50 @@ export function Quiz() {
   }
 
   function select(optionIndex: number) {
-    console.log(`selecionou a opção ${optionIndex}`)
-    
-    // const ans = [...answers]
-    answers[currentQuestion] = optionIndex
-    // setAnswers(answers)
+    setCurrentOption(optionIndex)
+    const newAnswers = [...answers]
+    newAnswers[currentQuestion] = optionIndex
+    setAnswers(newAnswers)
   }
-  
-  if (showResults) {
-    console.log(answers)
-    const ans = answers.map((optionIndex, questionIndex) => questions[questionIndex].options[optionIndex])
-    return <Results answers={ ans }/>
+
+  function reset() {
+    setCurrentOption(undefined)
+    setCurrentQuestion(0)
+    setShowResults(false)
   }
-  else {
-    return <div className="panel">
-      Opção selecionada:
-      { answers[currentQuestion] }
-      <Question
-        statement={ questions[currentQuestion].statement }
-        options={ questions[currentQuestion].options }
-        onSelection={ select }
-      />
-      <button onClick={ confirm }>Confirma resposta</button>
+
+  const questionMode = (
+    <div>
+      <div className="questionPane">
+        <div className="questionNumber">
+          Questão { currentQuestion + 1 } de { questions.length }
+        </div>
+        <Question
+          statement={ questions[currentQuestion].statement }
+          options={ questions[currentQuestion].options }
+          onSelection={ select }
+          selection={ currentOption }
+        />
+      </div>
+      <button onClick={ confirm } disabled={ currentOption === undefined }>Confirma resposta</button>
     </div>
-  }
+  )
+
+  const statementString = questions.map(qst => qst.statement)
+  const answerString = answers.map((optionIndex, questionIndex) => questions[questionIndex].options[optionIndex])
+  const resultsMode = (
+    <div>
+      <div className="questionPane">
+        <Results statements={ statementString } answers={ answerString }/>
+      </div>
+      <button onClick={ reset }>Reinicia</button>
+    </div>
+  )
+  
+  return (
+    <div className="quizPane">
+      <h1>Quiz</h1>
+      { showResults ? resultsMode : questionMode }
+    </div>
+  )    
 }

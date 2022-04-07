@@ -1,21 +1,25 @@
-import './Question.css';
+import './Question.css'
 
 interface QuestionProps {
   statement: string
   options: string[]
   onSelection: Function
+  selection?: number
 }
 
 export function Question(props: QuestionProps) {
-  // const buttons = props.options.map(txt => <button>{ txt }</button>)
 
   const buttons = props.options.map((txt, index) => (
-    <button key={ txt } onClick={ () => props.onSelection(index) }>{ txt }</button>
+    <button key={ txt }
+      className={ index === props.selection ? 'selected' : '' }
+      onClick={ () => props.onSelection(index) }
+    >{ txt }
+    </button>
   ))
   
   return (
-    <div>
-      <h1>{ props.statement }</h1>
+    <div className="question">
+      <h2>{ props.statement }</h2>
       { buttons }
     </div>
   )
