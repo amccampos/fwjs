@@ -1,9 +1,12 @@
-import React from 'react';
 import './App.css';
-import { Quiz } from './components/Quiz';
+import Tab from '../../quiz/src/components/tab';
 
 function App() {
-  return <Quiz />
+  return (
+    <div className="App">
+      <Tab/>
+    </div>
+  );
 }
 
 export default App;
