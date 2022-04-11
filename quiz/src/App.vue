@@ -1,15 +1,12 @@
 <script setup lang="ts">
+import Quiz from './components/Quiz.vue'
+
 </script>
 
 <template>
-  <h1>Olá mundo!</h1>
+  <Quiz></Quiz>
 </template>
 
 <style>
 @import './assets/base.css';
-
-#app {
-  text-align: center;
-}
-
 </style>
