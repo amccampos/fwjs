@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Question } from './Question';
 import { Results } from './Results';
-import Tab from "./components/Tab";
+import './Quiz.css';
 
 const questions = [
   {
@@ -15,53 +15,67 @@ const questions = [
 ];
 
 export function Quiz() {
-  const [showResults, setShowResults] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
+  const [showResults, setShowResults] = useState(false)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [currentOption, setCurrentOption] = useState<number>()
+  const [answers, setAnswers] = useState<number[]>([])
 
   function confirm() {
-    console.log('Confirma resposta');
-
+    console.log('Confirma resposta')
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowResults(true);
+      setCurrentQuestion(currentQuestion + 1)
+      setCurrentOption(undefined)
+    }
+    else {
+      setShowResults(true)
     }
   }
 
   function select(optionIndex: number) {
-    console.log(`selecionou a opção ${optionIndex}`);
-
-    const ans = [...answers];
-    ans[currentQuestion] = optionIndex;
-    setAnswers(ans);
+    setCurrentOption(optionIndex)
+    const newAnswers = [...answers]
+    newAnswers[currentQuestion] = optionIndex
+    setAnswers(newAnswers)
   }
 
-  if(showTab) {
-    return <Tab tabOptions={} />
+  function reset() {
+    setCurrentOption(undefined)
+    setCurrentQuestion(0)
+    setShowResults(false)
   }
-  if (showResults) {
-    const ans = answers.map(
-      (optionIndex, questionIndex) =>
-        questions[questionIndex].options[optionIndex]
-    );
-    return <Results answers={ans} />;
-  } else {
-    return (
-      <div>
-        <div>
-          <h3>
-            Opção selecionada:{' '}
-            {answers[currentQuestion] && answers[currentQuestion]}
-          </h3>
+
+  const questionMode = (
+    <div>
+      <div className="questionPane">
+        <div className="questionNumber">
+          Questão { currentQuestion + 1 } de { questions.length }
         </div>
         <Question
-          statement={questions[currentQuestion].statement}
-          options={questions[currentQuestion].options}
-          onSelection={select}
+          statement={ questions[currentQuestion].statement }
+          options={ questions[currentQuestion].options }
+          onSelection={ select }
+          selection={ currentOption }
         />
-        <button onClick={confirm}>Confirma resposta</button>
       </div>
-    );
-  }
+      <button onClick={ confirm } disabled={ currentOption === undefined }>Confirma resposta</button>
+    </div>
+  )
+
+  const statementString = questions.map(qst => qst.statement)
+  const answerString = answers.map((optionIndex, questionIndex) => questions[questionIndex].options[optionIndex])
+  const resultsMode = (
+    <div>
+      <div className="questionPane">
+        <Results statements={ statementString } answers={ answerString }/>
+      </div>
+      <button onClick={ reset }>Reinicia</button>
+    </div>
+  )
+  
+  return (
+    <div className="quizPane">
+      <h1>Quiz</h1>
+      { showResults ? resultsMode : questionMode }
+    </div>
+  )    
 }

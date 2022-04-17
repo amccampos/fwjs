@@ -1,15 +1,16 @@
-import React from 'react';
+import './Results.css'
 
-interface resultProps {
-  answers: string[];
+interface ResultsProps {
+  statements: string[]
+  answers: string[]
 }
 
-export function Results(props: resultProps) {
-  const ans = props.answers.map((txt) => <li key={txt}>{txt}</li>);
-  return (
-    <div>
-      <h1>Resultados</h1>
-      <ul>{ans}</ul>
+export function Results(props: ResultsProps) {
+  const results = props.answers.map((answer, index) => (
+    <div className="questionResult">
+      <h3>Questão { index + 1 }</h3>
+      { props.statements[index] }: { answer }
     </div>
-  );
+  ))
+  return <div>{ results }</div>
 }
