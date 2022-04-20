@@ -1,14 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-root',
-  template: '<h1>Olá mundo!</h1>',
-  styles: [`
-    h1 {
-      text-align: center;
-    }
-  `]
+  template: `<app-quiz></app-quiz>`
 })
 export class AppComponent {
-  title = 'quiz';
 }
