@@ -1,12 +1,5 @@
-<script lang="ts">
+<Quiz />
+
+<script>
+import Quiz from './components/quiz.svelte'
 </script>
-
-<main>
-	<h1>Olá mundo!</h1>
-</main>
-
-<style>
-	main {
-		text-align: center;
-	}
-</style>
