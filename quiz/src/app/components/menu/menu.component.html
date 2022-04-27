@@ -1,0 +1,10 @@
+<nav class='header-menu'>
+  <ul>
+    <li *ngFor="let index of [0,1, 2, 3]">
+      <button [ngClass]="{selected: index === selected}"
+              (click)="onSelection(index)">
+        Tab {{ index+1 }}
+      </button>
+    </li>
+  </ul>
+</nav>
