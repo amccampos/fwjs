@@ -1,5 +1,5 @@
-<h1>{ statement }</h1>
-<div class="questionPane">
+<h2>{ statement }</h2>
+<div class="options">
   {#each options as option, index (option)}
   <button
     class={ index === selection ? 'selected' : '' }
@@ -26,7 +26,23 @@
 </script>
 
 <style>
+  h2 {
+    font-weight: normal;
+    font-size: 20pt;
+    margin-top: 0;
+  }
+  button {
+    margin-right: 10px;
+    background-color: #ccc;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 3px;
+    padding: 2px 5px;
+  }
   .selected {
     font-weight: bold;
+    background-color: #aaa;
+  }
+  .options {
+    margin-bottom: 10px;
   }
 </style>
