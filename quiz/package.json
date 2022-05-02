@@ -8,7 +8,8 @@
     "start": "sirv public --no-clear --port 3000",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "devDependencies": {
+  "dependencies": {
+    "sirv-cli": "^2.0.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "rollup": "^2.3.4",
@@ -23,8 +24,5 @@
     "typescript": "^4.0.0",
     "tslib": "^2.0.0",
     "@tsconfig/svelte": "^2.0.0"
-  },
-  "dependencies": {
-    "sirv-cli": "^2.0.0"
   }
 }
