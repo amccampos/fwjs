@@ -3,18 +3,14 @@ import { Question } from './Question';
 import { Results } from './Results';
 import './Quiz.css';
 
-const questions = [
-  {
-    statement: 'Enunciado da 1ª questão',
-    options: ['Opção 1.1', 'Opção 1.2', 'Opção 1.3', 'Opção 1.4']
-  },
-  {
-    statement: 'Enunciado da 2ª questão',
-    options: ['Opção 2.1', 'Opção 2.2', 'Opção 2.3', 'Opção 2.4']
-  },
-]
+export interface QuizProps {
+  questions: {
+    statement: string
+    options: string[]
+  }[]
+}
 
-export function Quiz() {
+export function Quiz({ questions }: QuizProps) {
   const [showResults, setShowResults] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [currentOption, setCurrentOption] = useState<number>()
