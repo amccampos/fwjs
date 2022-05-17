@@ -1,0 +1,67 @@
+.qst-form {
+  --label-size: 150px;
+  --label-margin: 10px;
+  --label-width: calc(var(--label-size) + var(--label-margin));
+  --border-size: 1px;
+  --border-color: #ccc;
+  --border-radius: 5px;
+  --input-padding: 5px;
+  --input-number-size: 30pt;
+  padding: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.qst-form label {
+  width: var(--label-size);
+  display: inline-block;
+  text-align: right;
+  font-weight: bold;
+  margin-right: var(--label-margin);
+  vertical-align: top;
+}
+
+.qst-form .error {
+  font-style: italic;
+  font-size: 10pt;
+  color: red;
+  margin-left: var(--label-width);
+  height: 20pt;
+}
+
+.qst-form .buttons {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: var(--border-size) solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.qst-form textarea {
+  height: 100px;
+  margin-bottom: -5pt;
+}
+
+.qst-form input[type="submit"] {
+  padding: 4pt 8pt;
+}
+
+.qst-form input[type="radio"]:not(:first-child) {
+  margin-left: 20px;
+}
+
+.qst-form input[type="text"],
+.qst-form input[type="number"],
+.qst-form textarea {
+  border-radius: var(--border-radius);
+  border: var(--border-size) solid var(--border-color);
+  padding: var(--input-padding);
+}
+
+.qst-form input[type="text"],
+.qst-form textarea {
+  width: calc(100% - (var(--label-width) + 2 * (var(--border-size) + var(--input-padding))));
+}
+
+.qst-form input[type="number"] {
+  width: var(--input-number-size);
+}
