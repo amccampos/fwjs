@@ -7,7 +7,7 @@ interface ResultsProps {
 
 export function Results(props: ResultsProps) {
   const results = props.answers.map((answer, index) => (
-    <div className="questionResult">
+    <div className="questionResult" key={answer}>
       <h3>Questão { index + 1 }</h3>
       { props.statements[index] }: { answer }
     </div>
