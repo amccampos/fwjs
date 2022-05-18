@@ -40,7 +40,7 @@ export function Quiz({ questions }: QuizProps) {
     setShowResults(false)
   }
 
-  const questionMode = (
+  const questionMode = questions.length > 0 ? (
     <div>
       <div className="questionPane">
         <div className="questionNumber">
@@ -55,7 +55,7 @@ export function Quiz({ questions }: QuizProps) {
       </div>
       <button onClick={ confirm } disabled={ currentOption === undefined }>Confirma resposta</button>
     </div>
-  )
+  ) : <div>Não há questão</div>
 
   const statementString = questions.map(qst => qst.statement)
   const answerString = answers.map((optionIndex, questionIndex) => questions[questionIndex].options[optionIndex])
