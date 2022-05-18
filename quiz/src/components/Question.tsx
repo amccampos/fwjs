@@ -1,6 +1,6 @@
 import './Question.css'
 
-interface QuestionProps {
+export interface QuestionProps {
   statement: string
   options: string[]
   onSelection?: (n: number) => void

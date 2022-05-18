@@ -1,12 +1,17 @@
 import { FormEvent, useState } from "react"
 import { isInt, required, minLen, inRange } from '../utils/validation'
+import { QuestionProps } from "./Question"
 import './QuestionForm.css'
+
+interface QuestionFormProps {
+  onSubmit: (qst: QuestionProps) => void
+}
 
 /**
  * Formulário para cadastrar e/ou alterar dados de uma questão.
  * @returns Componente do formulário
  */
-export function QuestionForm() {
+export function QuestionForm({ onSubmit }: QuestionFormProps) {
 
   const [ statement, setStatement ] = useState<string>('')                 // enunciado~da questão
   const [ options, setOptions ] = useState<string[]>(['', ''])             // opções da questão
@@ -100,18 +105,19 @@ export function QuestionForm() {
    * Verifica se há erros no formulário e, se estiverem corretos, trata os dados.
    * @param e Evento de submissão do formulário
    */
-  function onSubmit(e: FormEvent) {
+  function submit(e: FormEvent) {
     e.preventDefault()
     const statOk = check(statement, minLen(3), 'stat')
-    const optionsOk = options.map((opt, i) => {
-      return check(opt, required, `option_${i}`)
-    }).every(o => o)
+    const optionsOk = qstType !== 'choice'
+      ? true
+      : options
+        .map((opt, i) => check(opt, required, `option_${i}`))
+        .every(o => o)
 
     if (statOk && optionsOk) {
       // Dados corretos, podemos processá-los.
       // Nesse exemplo, estamos apenas imprimindo-os.
-      console.log('Trata os seguintes dados:')
-      console.log({ statement, qstType, options })
+      onSubmit({ statement, options })
     }
   }
 
@@ -176,7 +182,7 @@ export function QuestionForm() {
 
   // Formulário completo
   return (
-    <form className="qst-form" onSubmit={onSubmit}>
+    <form className="qst-form" onSubmit={submit}>
       { stateElm }
       { qstTypeElm }
       { qstType === 'choice' ? optionsElm : '' }
