@@ -78,14 +78,25 @@
         },
         {
             "name": "User",
-            "id": "interface-User-9c7e5f1bbbab702cb032307d130876cb68969b0cd4eedef32a0c8cad8081a54e5f8f577ed6ad4539c1b99a1d246cb34031d198c2ea8eba440e64e91b14f01fdc",
+            "id": "interface-User-f2d396e3e11638191fa144308a82d2f1104ea1e428ec82cba7dfea5aeb62ea9db96aa9f8ecb8c07cee91673abb763eea3443c6c744e64a2b9fff57c7701f1b0b",
             "file": "src/stories/User.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "export interface User {}\n",
-            "properties": [],
+            "sourceCode": "export interface User {\n  name\n}\n",
+            "properties": [
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                }
+            ],
             "indexSignatures": [],
+            "kind": 165,
             "methods": []
         }
     ],
@@ -405,7 +416,7 @@
         },
         {
             "name": "MenuComponent",
-            "id": "component-MenuComponent-70d733fe66112e9ecbd288f2c58e7fe03f18c6e3b2211d769054aaa50c8a061886084537bc99620c2372dfa3aa625501bb5ef0570c4c3818ba180d5b90d93f5d",
+            "id": "component-MenuComponent-29bb65b039feb46f349e0369ce7eb1c6e55c7f2696828803255674878e2a69749f926885671c4ef25cbfac40193a78133a8e0b2f8d899cfb326f39d52172bc40",
             "file": "src/app/components/menu/menu.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -435,6 +446,7 @@
             "propertiesClass": [
                 {
                     "name": "selected",
+                    "defaultValue": "0",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "number",
@@ -451,7 +463,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {Component, EventEmitter, Output} from '@angular/core';\n\n@Component({\n  selector: 'app-menu',\n  templateUrl: './menu.component.html',\n  styleUrls: ['./menu.component.css']\n})\nexport class MenuComponent {\n  selected: number;\n  @Output() selection = new EventEmitter<number>();\n\n}\n",
+            "sourceCode": "import {Component, EventEmitter, Output} from '@angular/core';\n\n@Component({\n  selector: 'app-menu',\n  templateUrl: './menu.component.html',\n  styleUrls: ['./menu.component.css']\n})\nexport class MenuComponent {\n  selected: number = 0;\n  @Output() selection = new EventEmitter<number>();\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1059,21 +1071,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<Header>",
-                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/Button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<Button>",
                 "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<Header>",
+                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -1634,7 +1646,7 @@
                 "linktype": "interface",
                 "name": "User",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {
