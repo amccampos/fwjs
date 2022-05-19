@@ -6,11 +6,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  selected: number = 0;
+  selected: number;
   @Output() selection = new EventEmitter<number>();
 
-  onSelection(index: number) {
-    this.selected = index
-    this.selection.emit(index)
-  }
 }
