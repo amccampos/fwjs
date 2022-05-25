@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Quiz from './components/Quiz.vue'
+import QuestionForm from './components/QuestionForm.vue'
 
 </script>
 
 <template>
-  <Quiz></Quiz>
+  <QuestionForm></QuestionForm>
 </template>
 
 <style>
