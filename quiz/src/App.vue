@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import QuestionForm from './components/QuestionForm.vue'
+import QuestionList from './components/QuestionList.vue'
+import Question from './components/Question.vue'
+
+import { questionStore } from './store/question.store'
 
 </script>
 
 <template>
-  <QuestionForm></QuestionForm>
+  <QuestionList></QuestionList>
 </template>
 
 <style>

@@ -37,17 +37,21 @@
 </template>
 
 <script setup lang="ts">
+import type { QuestionType } from '@/store/question.store'
 import { ref, reactive } from 'vue'
 import { inRange, isInt, minLen, required } from '../utils/validation'
 
-const temp = ref(2)
+export interface QuestionEvents {
+  (e: 'submit', question: QuestionType): void // quando o usuário selecionar uma opção, passa seu índice
+}
 
 const statement = ref<string>('')                 // enunciado~da questão
 const options = reactive<string[]>(['', ''])             // opções da questão
-const qstType = ref<string>('')                     // tipo da questão (para ilustrar outros tipos de input)
+const qstType = ref<'text' | 'choice'>('text')                     // tipo da questão (para ilustrar outros tipos de input)
 const errors = reactive<{[name: string]: string}>({})     // erros nos campos dos formulários
 const touched = reactive<{[name: string]: boolean}>({})  // indica, para cada campo, se ele foi alterado pelo usuário
 
+const emit = defineEmits<QuestionEvents>()
 
   /**
    * Indica quando um campo é alterado pelo usuário.
@@ -144,6 +148,13 @@ const touched = reactive<{[name: string]: boolean}>({})  // indica, para cada ca
     if (statOk && optionsOk) {
       // Dados corretos, podemos processá-los.
       // Nesse exemplo, estamos apenas imprimindo-os.
+      emit('submit', {
+        statement: statement.value,
+        qstType: qstType.value,
+        options
+      })
+
+
       console.log({
         statement: statement.value,
         qstType: qstType.value,
