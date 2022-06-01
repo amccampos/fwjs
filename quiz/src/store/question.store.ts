@@ -17,11 +17,13 @@ export const questionStore = reactive<QuestionStore>({
   questions: reactive<QuestionType[]>([]),
 
   add(qst: QuestionType) {
-    this.questions.push(qst)
+    const newQst = {...qst}
+    newQst.options = [...qst.options]
+    this.questions.push(newQst)
   },
 
   update(index: number, qst: QuestionType) {
-    this.questions[index] = qst
+    this.questions[index] = {...qst}
   },
 
   delete(index: number) {

@@ -1,6 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
-
+  <form class="qst-form" @submit.prevent="submit">
     <div>
       <label>Enunciado</label>
       <textarea v-model="statement"
@@ -19,30 +18,30 @@
       <div className="error">{{ errors.qstType }}</div>
     </div>
 
-    <div>
+    <div v-if="qstType === 'choice'">
       <label>Número de opções</label>
-      <input type="number" :value="options.length" @change="changeNumOptions($event.target.value)" />
+      <input type="number" :value="options.length" @change="changeNumOptions(($event.target as HTMLInputElement).value)" />
 
       <div className="error">{{ errors.numOptions }}</div>
+      <div v-for="(opt, i) in options" :key="`option_${i}`">
+        <label>Opção {{i + 1}}</label>
+        <input type="text" v-model="options[i]" />
+        <div className="error">{{ errors[`option_${i}`] }}</div>
+      </div>
     </div>
 
-    <div v-for="(opt, i) in options" :key="`option_${i}`">
-      <label>Opção {{i + 1}}</label>
-      <input type="text" v-model="options[i]" />
-      <div className="error">{{ errors[`option_${i}`] }}</div>
-    </div>
 
     <input type="submit" />
   </form>
 </template>
 
 <script setup lang="ts">
-import type { QuestionType } from '@/store/question.store'
+import { type QuestionType } from '../store/question.store'
 import { ref, reactive } from 'vue'
 import { inRange, isInt, minLen, required } from '../utils/validation'
 
 export interface QuestionEvents {
-  (e: 'submit', question: QuestionType): void // quando o usuário selecionar uma opção, passa seu índice
+  (e: 'onSubmit', question: QuestionType): void // quando o usuário selecionar uma opção, passa seu índice
 }
 
 const statement = ref<string>('')                 // enunciado~da questão
@@ -105,13 +104,14 @@ const emit = defineEmits<QuestionEvents>()
     // se passar no teste de validação, altera o tamanho do array `options`
     if (check(value, validateFunc, 'numOptions')) {
       const num = parseInt(value, 10)
+      
       if (num <= options.length) { // ou reduz o tamanho do array
         for (let i = num; i < options.length; i++) {
           touch(`option_${i}`, false) // limpa os indicadores de alteraçao das opções removidas
           setError(`option_${i}`, '') // limpa as mensagens de erro das opções removidas
         }
-        options.slice(0, num).forEach((o, i) => options[i] = o)
-        
+        // === ALTERAÇÃO ===
+        options.splice(num, options.length - num)
       }
       else {  // ou aumenta o tamanho do array com strings vazias nos novos elementos
         const tail = Array(num - options.length).fill('')
@@ -148,14 +148,8 @@ const emit = defineEmits<QuestionEvents>()
     if (statOk && optionsOk) {
       // Dados corretos, podemos processá-los.
       // Nesse exemplo, estamos apenas imprimindo-os.
-      emit('submit', {
-        statement: statement.value,
-        qstType: qstType.value,
-        options
-      })
-
-
-      console.log({
+      // === ALTERAÇÃO ===
+      emit('onSubmit', {
         statement: statement.value,
         qstType: qstType.value,
         options
@@ -163,3 +157,73 @@ const emit = defineEmits<QuestionEvents>()
     }
   }
 </script>
+
+<style scoped>
+.qst-form {
+  --label-size: 150px;
+  --label-margin: 10px;
+  --label-width: calc(var(--label-size) + var(--label-margin));
+  --border-size: 1px;
+  --border-color: #ccc;
+  --border-radius: 5px;
+  --input-padding: 5px;
+  --input-number-size: 30pt;
+  padding: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.qst-form label {
+  width: var(--label-size);
+  display: inline-block;
+  text-align: right;
+  font-weight: bold;
+  margin-right: var(--label-margin);
+  vertical-align: top;
+}
+
+.qst-form .error {
+  font-style: italic;
+  font-size: 10pt;
+  color: red;
+  margin-left: var(--label-width);
+  height: 20pt;
+}
+
+.qst-form .buttons {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: var(--border-size) solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.qst-form textarea {
+  height: 100px;
+  margin-bottom: -5pt;
+}
+
+.qst-form input[type="submit"] {
+  padding: 4pt 8pt;
+}
+
+.qst-form input[type="radio"]:not(:first-child) {
+  margin-left: 20px;
+}
+
+.qst-form input[type="text"],
+.qst-form input[type="number"],
+.qst-form textarea {
+  border-radius: var(--border-radius);
+  border: var(--border-size) solid var(--border-color);
+  padding: var(--input-padding);
+}
+
+.qst-form input[type="text"],
+.qst-form textarea {
+  width: calc(100% - (var(--label-width) + 2 * (var(--border-size) + var(--input-padding))));
+}
+
+.qst-form input[type="number"] {
+  width: var(--input-number-size);
+}
+</style>
