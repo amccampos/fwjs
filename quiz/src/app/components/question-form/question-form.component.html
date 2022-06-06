@@ -1,0 +1,61 @@
+<form class="qst-form " #questionForm="ngForm" (ngSubmit)="questionForm.valid && submit()">
+  <div>
+    <label>Enunciado</label>
+    <textarea #stat="ngModel"
+      [(ngModel)]="question.statement"
+      name="statement"
+      required minlength="3">
+    </textarea>
+    <div *ngIf="stat.touched && stat.errors" class="errors">
+      <div *ngIf="stat.errors['required']">
+        Este campo é necessário
+      </div>
+      <div *ngIf="stat.errors['minlength']">
+        Digite pelo menos 3 caracteres
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label>Tipo da questão:</label>
+    <span>
+      <input type="radio" value="choice" name="qstType" [(ngModel)]="question.type" />Objetiva
+      <input type="radio" value="text" name="qstType" [(ngModel)]="question.type" />Textual
+    </span>
+  </div>
+
+  <div *ngIf="question.type === 'choice'">
+    <label>Número de opções</label>
+    <input type="number"
+      name="length"
+      #numOptions="ngModel"
+      [(ngModel)] ="question.options.length"
+      min="2" max="5"
+      />
+    <div *ngIf="numOptions.dirty && numOptions.errors" class="errors">
+      <div *ngIf="numOptions.errors['min']">
+        Deve haver pelo menos duas opções
+      </div>
+      <div *ngIf="numOptions.errors['max']">
+        Deve haver no máximo cinco opções
+      </div>
+    </div>
+
+    <div *ngFor="let o of question.options; index as i; trackBy: trackByFn">
+      <label>Opção {{i + 1}}</label>
+      <input type="text"
+        #qstOption="ngModel"
+        name="option-{{i}}"
+        [(ngModel)]="question.options[i]"
+        required
+         />
+      <div *ngIf="qstOption.dirty && qstOption.errors" class="errors">
+        <div *ngIf="qstOption.errors['required']">
+          Digite o texto da opção
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input type="submit" value="Cadastrar" [disabled]="questionForm.invalid" />
+</form>

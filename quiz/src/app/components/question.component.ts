@@ -1,11 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core"
 
-export interface Question {
-  statement: string  // enunciado da questão
-  options: string[]  // opções da questão
-  selection?: number // índice da opção selecionada, se houver
-}
-
 @Component({
   selector: 'app-question',
   template: `

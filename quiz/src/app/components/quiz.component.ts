@@ -1,5 +1,5 @@
 import { Component } from "@angular/core"
-import { Question } from "./question.component"
+import { Question } from "../services/question.service"
 import { Answer } from "./results.component"
 
 @Component({
@@ -50,14 +50,16 @@ import { Answer } from "./results.component"
 })
 export class QuizComponent {
   questions: Question[] = [
-    {
-      statement: 'Enunciado da 1ª questão',
-      options: ['opção 1.1', 'opção 1.2', 'opção 1.3', 'opção 1.4']
-    },
-    {
-      statement: 'Enunciado da 2ª questão',
-      options: ['opção 2.1', 'opção 2.2', 'opção 2.3', 'opção 2.4']
-    },
+    new Question(
+      'Enunciado da 1ª questão',
+      'choice',
+      ['opção 1.1', 'opção 1.2', 'opção 1.3', 'opção 1.4']
+    ),
+    new Question(
+      'Enunciado da 2ª questão',
+      'choice',
+      ['opção 2.1', 'opção 2.2', 'opção 2.3', 'opção 2.4']
+    ),
   ]
   currentQuestion = 0
   currentOption: number | undefined

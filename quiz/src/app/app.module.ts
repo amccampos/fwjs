@@ -3,11 +3,11 @@ import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
-import { QuestionFormComponent } from './components/question-form.component'
+import { QuestionFormComponent } from './components/question-form/question-form.component'
+import { QuestionListComponent } from './components/question-list.component'
 import { QuestionComponent } from './components/question.component'
 import { QuizComponent } from './components/quiz.component'
 import { ResultsComponent } from './components/results.component'
-import { TestComponent } from './components/test.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { TestComponent } from './components/test.component'
     QuestionComponent,
     ResultsComponent,
     QuestionFormComponent,
-    TestComponent
+    QuestionListComponent
   ],
   imports: [
     BrowserModule,
