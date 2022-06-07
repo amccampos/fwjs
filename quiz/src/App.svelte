@@ -1,7 +1,8 @@
-<Quiz />
+<QuestionForm />
 
 <script>
 import './assets/base.css';
-import Quiz from './components/quiz.svelte'
+import QuestionForm from './components/question-form.svelte'
+// import Quiz from './components/quiz.svelte'
 </script>
 
