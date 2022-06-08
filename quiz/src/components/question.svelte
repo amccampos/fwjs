@@ -15,7 +15,7 @@
 
   export let statement: string = 'Enunciado da questão'
   export let options: string[] = []
-  export let selection: number
+  export let selection: number | null = null
 
   const dispatcher = createEventDispatcher()
 

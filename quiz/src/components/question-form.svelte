@@ -42,7 +42,14 @@
 </form>
 
 <script lang="ts">
+import { createEventDispatcher } from 'svelte';
+import type { QuestionType } from '../store/questions.store';
+
   import { inRange, isInt, minLen, required } from '../utils/validation'
+
+  const dispatcher = createEventDispatcher<{
+    submit: QuestionType
+  }>()
 
   let statement = ''
   let options = ['', '']
@@ -148,9 +155,10 @@
     if (statOk && optionsOk) {
       // Dados corretos, podemos processá-los.
       // Nesse exemplo, estamos apenas imprimindo-os.
-      console.log({
-        statement: statement,
-        qstType: qstType,
+      console.log(statement)
+      dispatcher('submit', {
+        statement,
+        qstType,
         options
       })
     }
